@@ -1,0 +1,12 @@
+{
+  "name": "safe_backend",
+  "version": "1.0.0",
+  "description": "A node backend for safeNg",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Ahumareze",
+  "license": "ISC"
+}
