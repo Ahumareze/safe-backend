@@ -38,5 +38,3 @@ app.post('/upload', async (req, res) => {
 const postCrime = (imgUrl, content, res) => {
     res.json({imgUrl, content})
 }
-
-app.listen(PORT, () => console.log('server running on ' + PORT))
