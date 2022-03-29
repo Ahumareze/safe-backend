@@ -19,22 +19,51 @@ mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true})
   })
   .catch(e => console.log(e));
 
-app.post('/upload', async (req, res) => {
+// app.get('/', (req, res) => {
+//     Crime.find()
+//         .then(r => {
+//             res.json(r)
+//         })
+//         .catch(e => {
+//             res.status(500).json({message: 'error'})
+//         })
+// })
+
+app.post('/api/upload', async (req, res) => {
     const fileStr = req.body.image;
-    const content = req.body.content;
 
     try {
         const uploadResponse = await cloudinary.uploader.upload(fileStr, {
             upload_preset: 'kqiuojxc'
         });
         console.log(uploadResponse);
-        postCrime(uploadResponse.url, content, res)
+        postCrime(uploadResponse.url, req, res)
     } catch (error) {
         res.status(500).json({message: 'something went wrong'});
         console.log(error)
     }
 });
 
-const postCrime = (imgUrl, content, res) => {
-    res.json({imgUrl, content})
+const postCrime = (imgUrl, req, res) => {
+    const content = req.body.content;
+    const date = req.body.date;
+    const time = req.body.time;
+    const location = req.body.location;
+
+    const crime = new Crime({
+        name: 'Anonymous',
+        date,
+        time,
+        location,
+        image: imgUrl,
+        content
+    })
+    crime.save()
+        .then(r => {
+            res.json(r)
+        })
+        .catch(e => {
+            res.status(500).json({message: 'error posting data'});
+            console.log(e)
+        })
 }

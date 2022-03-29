@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
 const crimeSchema = new schema({
-    nama: {
+    name: {
         type: String,
         required: true
     },
