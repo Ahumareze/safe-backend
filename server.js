@@ -21,21 +21,22 @@ const PORT = process.env.PORT || 5000;
 
 app.post('/upload', async (req, res) => {
     const fileStr = req.body.image;
+    const content = req.body.content;
 
     try {
         const uploadResponse = await cloudinary.uploader.upload(fileStr, {
             upload_preset: 'kqiuojxc'
         });
         console.log(uploadResponse);
-        postCrime(uploadResponse.url, req.body.content, res)
+        postCrime(uploadResponse.url, content, res)
     } catch (error) {
-        res.status(500).json({err: 'sommething went wrong'})
+        res.status(500).json({message: 'something went wrong'});
+        console.log(error)
     }
-    
 });
 
 const postCrime = (imgUrl, content, res) => {
     res.json({imgUrl, content})
 }
 
-app.listen(PORT)
+app.listen(PORT, () => console.log('server running on ' + PORT))
