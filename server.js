@@ -28,7 +28,8 @@ app.post('/upload', async (req, res) => {
         console.log(uploadResponse);
         res.json({msg: "successful"})
     } catch (error) {
-        res.status(500).json({err: 'sommething went wrong'})
+        // res.status(500).json({err: 'sommething went wrong'})
+        console.log(error)
     }
     
 })
