@@ -27,7 +27,7 @@ const uploads = (file, folder) => {
 }
 
 app.post('/upload', (req, res) => {
-    res.send(req.body.image)
+    res.send(req.body.content)
 })
 
 app.listen(PORT)
