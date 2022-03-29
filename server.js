@@ -1,19 +1,11 @@
 const express = require('express');
 const cors = require('cors');
-
+const {cloudinary} = require('./utils/cloudinary');
 const app = express();
 app.use(cors());
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb', extended: true}))
 const PORT = process.env.PORT || 5000;
-
-// const cloudinary = require('cloudinary').v2;
-
-// cloudinary.config({
-//     cloud_name: 'ahumareze',
-//     api_key: '169527325266592',
-//     api_secret: 'nrkLCaqONtnbA9z_DBr63N2mDLs'
-// });
 
 // const uploads = (file, folder) => {
 //     return new Promise(resolve => {
@@ -27,8 +19,18 @@ const PORT = process.env.PORT || 5000;
 //     })
 // }
 
-app.post('/upload', (req, res) => {
-    res.send(req.body.image)
+app.post('/upload', async (req, res) => {
+    const fileStr = req.body.image;
+    try {
+        const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+            upload_preset: 'kqiuojxc'
+        });
+        console.log(uploadResponse);
+        res.json({msg: "successful"})
+    } catch (error) {
+        res.status(500).json({err: 'sommething went wrong'})
+    }
+    
 })
 
 app.listen(PORT)
