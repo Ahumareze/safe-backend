@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const cors = require('cors');
 const {cloudinary} = require('./utils/cloudinary');
 
@@ -8,6 +9,15 @@ app.use(express.urlencoded({limit: '50mb', extended: true}));
 app.use(cors());
 
 const PORT = process.env.PORT || 5000;
+
+//connect to mongodb
+const dbUrl = process.env.dbUrl;
+mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true})
+  .then(r => {
+    console.log('connected to db ' + r);
+    app.listen(PORT);
+  })
+  .catch(e => console.log(e));
 
 app.post('/upload', async (req, res) => {
     const fileStr = req.body.image;
