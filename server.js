@@ -1,5 +1,8 @@
 const express = require('express');
+const cors = require('cors');
+
 const app = express();
+app.use(cors());
 const PORT = process.env.PORT || 5000;
 
 const cloudinary = require('cloudinary').v2;
@@ -23,7 +26,7 @@ const uploads = (file, folder) => {
 }
 
 app.post('/upload', (req, res) => {
-    console.log(req.body.file)
+    res.send(req.body.name)
 })
 
 app.listen(PORT)
