@@ -48,10 +48,11 @@ app.post('/api/like', (req, res) => {
     const id = req.body.id;
     Crime.findById(req.body.id)
         .then(r => {
-            likePost(id, r, res)
+            likePost(id, r, res);
         })
         .catch(e => {
-            res.status(500).json({message: e})
+            res.status(500).json({message: e});
+            console.log(e)
         })
 });
 
