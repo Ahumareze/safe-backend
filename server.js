@@ -45,8 +45,19 @@ app.post('/api/upload', async (req, res) => {
 });
 
 app.post('/api/like', (req, res) => {
-    res.json({id: req.body.id, safeId: req.body.safeId})
-})
+    const id = req.body.id;
+    Crime.findById(req.body.id)
+        .then(r => {
+            likePost(id, r, res)
+        })
+        .catch(e => {
+            res.status(500).json({message: e})
+        })
+});
+
+const likePost = (id, data, res) => {
+    res.json(r.likes)
+}
 
 const postCrime = (imgUrl, req, res) => {
     const content = req.body.content;
