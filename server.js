@@ -48,6 +48,7 @@ const postCrime = (imgUrl, req, res) => {
     const content = req.body.content;
     const date = req.body.date;
     const time = req.body.time;
+    const likes = req.body.likes;
     const location = req.body.location;
 
     const crime = new Crime({
@@ -56,7 +57,8 @@ const postCrime = (imgUrl, req, res) => {
         time,
         location,
         image: imgUrl,
-        content
+        content,
+        likes
     })
     crime.save()
         .then(r => {
