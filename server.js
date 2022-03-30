@@ -19,15 +19,15 @@ mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true})
   })
   .catch(e => console.log(e));
 
-// app.get('/', (req, res) => {
-//     Crime.find()
-//         .then(r => {
-//             res.json(r)
-//         })
-//         .catch(e => {
-//             res.status(500).json({message: 'error'})
-//         })
-// })
+app.post('/api/crimes', (req, res) => {
+    Crime.find({location: req.body.location})
+        .then(r => {
+            res.json(r)
+        })
+        .catch(e => {
+            res.status(500).json({message: 'error'})
+        })
+})
 
 app.post('/api/upload', async (req, res) => {
     const fileStr = req.body.image;
