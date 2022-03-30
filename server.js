@@ -45,7 +45,7 @@ app.post('/api/upload', async (req, res) => {
 });
 
 app.post('/api/like', (req, res) => {
-    res.send(req.body.id, res.body.safeId)
+    res.json({id: req.body.id, safeId: req.body.safeId})
 })
 
 const postCrime = (imgUrl, req, res) => {
