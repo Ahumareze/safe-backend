@@ -54,7 +54,6 @@ app.post('/api/like', (req, res) => {
         })
         .catch(e => {
             res.status(500).json({message: e});
-            // console.log(e)
         })
 });
 
